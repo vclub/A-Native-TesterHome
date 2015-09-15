@@ -16,8 +16,7 @@
         android:padding="3dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@null"
-        android:src="@drawable/tab_main_home"
-        android:tint="@drawable/tab_item_txt_sel"/>
+        android:src="@drawable/tab_main_home"/>
 
     <TextView
         android:id="@+id/tabText"

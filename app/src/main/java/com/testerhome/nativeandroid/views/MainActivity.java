@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.fragments.HomeFragment;
+import com.testerhome.nativeandroid.fragments.TopicsListFragment;
 import com.testerhome.nativeandroid.utils.TintUtil;
 import com.testerhome.nativeandroid.views.base.BaseActivity;
 
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity {
         mTabHost.addTab(mTabHost.newTabSpec("home").setIndicator(indicator), HomeFragment.class, null);
 
         indicator = getIndicatoreView("话题", R.layout.home_indicator);
-        mTabHost.addTab(mTabHost.newTabSpec("topic").setIndicator(indicator), HomeFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("topic").setIndicator(indicator), TopicsListFragment.class, null);
 
         indicator = getIndicatoreView("招聘", R.layout.home_indicator);
         mTabHost.addTab(mTabHost.newTabSpec("job").setIndicator(indicator), HomeFragment.class, null);
