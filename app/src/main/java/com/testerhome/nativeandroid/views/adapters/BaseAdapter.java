@@ -1,4 +1,4 @@
-package com.testerhome.nativeandroid.views.adapter;
+package com.testerhome.nativeandroid.views.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

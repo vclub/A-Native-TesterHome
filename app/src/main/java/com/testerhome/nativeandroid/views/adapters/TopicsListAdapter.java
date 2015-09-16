@@ -1,4 +1,4 @@
-package com.testerhome.nativeandroid.views.adapter;
+package com.testerhome.nativeandroid.views.adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.models.TopicEntity;
+import com.testerhome.nativeandroid.views.adapters.BaseAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

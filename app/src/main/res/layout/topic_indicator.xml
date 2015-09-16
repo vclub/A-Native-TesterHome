@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="@null"
         android:padding="3dp"
-        android:src="@drawable/tab_main_home"
+        android:src="@drawable/tab_main_topic"
         app:tint="@color/tab_item_tint_color" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_gravity="center"
         android:focusable="true"
         android:gravity="center"
-        android:text="@string/main_tab_home"
+        android:text="@string/main_tab_topic"
         android:textColor="@drawable/tab_item_txt_sel"
         android:textSize="12sp" />
 </LinearLayout>
