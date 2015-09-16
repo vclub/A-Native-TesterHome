@@ -2,6 +2,9 @@ package com.testerhome.nativeandroid.views.base;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.squareup.leakcanary.RefWatcher;
+import com.testerhome.nativeandroid.application.NativeApp;
+
 import butterknife.ButterKnife;
 
 /**
@@ -18,5 +21,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+
+        RefWatcher refWatcher = NativeApp.getRefWatcher(this);
+        refWatcher.watch(this);
     }
 }

@@ -28,7 +28,6 @@ public class TopicsListFragment extends BaseFragment {
     private String type;
 
     public static TopicsListFragment newInstance(String type) {
-
         Bundle args = new Bundle();
         args.putString("type", type);
         TopicsListFragment fragment = new TopicsListFragment();
@@ -59,8 +58,6 @@ public class TopicsListFragment extends BaseFragment {
         TesterHomeApi.getInstance().getTopicsService().getTopicsByType(type, new Callback<TopicsResponse>() {
             @Override
             public void success(TopicsResponse topicsResponse, Response response) {
-                Log.e("demo", response.getUrl());
-
                 if (topicsResponse.getTopics().size() > 0){
                     mAdatper.addItems(topicsResponse.getTopics());
                 }
@@ -68,7 +65,6 @@ public class TopicsListFragment extends BaseFragment {
 
             @Override
             public void failure(RetrofitError error) {
-
                 Log.e("demo", "failure() called with: " + "error = [" + error + "]" + error.getUrl());
             }
         });
