@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.models.TopicEntity;
-import com.testerhome.nativeandroid.views.adapters.BaseAdapter;
+import com.testerhome.nativeandroid.utils.StringUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,7 +43,9 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
         holder.textViewTopicTitle.setText(topic.getTitle());
 
         holder.topicUsername.setText(topic.getUser().getName());
-        holder.topicPublishDate.setText(topic.getCreated_at());
+
+        holder.topicPublishDate.setText(StringUtils.formatPublishDateTime(topic.getCreated_at()));
+
         holder.topicName.setText(topic.getNode_name());
     }
 
