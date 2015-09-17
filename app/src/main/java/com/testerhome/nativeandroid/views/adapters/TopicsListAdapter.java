@@ -1,6 +1,7 @@
 package com.testerhome.nativeandroid.views.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,8 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.models.TopicEntity;
-import com.testerhome.nativeandroid.views.adapters.BaseAdapter;
+import com.testerhome.nativeandroid.utils.StringUtils;
+import com.testerhome.nativeandroid.views.TopicDetailActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,8 +45,19 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
         holder.textViewTopicTitle.setText(topic.getTitle());
 
         holder.topicUsername.setText(topic.getUser().getName());
-        holder.topicPublishDate.setText(topic.getCreated_at());
+
+        holder.topicPublishDate.setText(StringUtils.formatPublishDateTime(topic.getCreated_at()));
+
         holder.topicName.setText(topic.getNode_name());
+
+        holder.topicItem.setTag(topic.getId());
+        holder.topicItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer topicId = (Integer)v.getTag();
+                mContext.startActivity(new Intent(mContext, TopicDetailActivity.class).putExtra("topic_id", topicId));
+            }
+        });
     }
 
     public class TopicItemViewHolder extends RecyclerView.ViewHolder {
@@ -63,6 +76,9 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
 
         @Bind(R.id.tv_topic_name)
         TextView topicName;
+
+        @Bind(R.id.rl_topic_item)
+        View topicItem;
 
         public TopicItemViewHolder(View itemView) {
             super(itemView);

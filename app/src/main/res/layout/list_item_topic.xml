@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_topic_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
     android:orientation="vertical">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_topic_user_avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="6dp"
-        fresco:roundAsCircle="true"/>
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginRight="16dp"
+        fresco:roundAsCircle="true" />
 
     <TextView
         android:id="@+id/tv_topic_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginRight="6dp"
         android:layout_toRightOf="@+id/sdv_topic_user_avatar"
         android:maxLines="2"
         android:minLines="2"
-        android:text="testertestertestertestertestertestertestertestertestertestertester"
-        android:textSize="20sp" />
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        tools:text="Here is the title" />
 
     <TextView
         android:id="@+id/tv_topic_username"
@@ -31,15 +35,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_title"
         android:layout_toRightOf="@+id/sdv_topic_user_avatar"
-        android:text="tester" />
+        tools:text="username" />
 
     <TextView
         android:id="@+id/tv_topic_publish_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/tv_topic_title"
-        android:layout_toRightOf="@+id/tv_topic_username"
-        android:text="tester" />
+        tools:text="datetime" />
 
     <TextView
         android:id="@+id/tv_topic_name"
@@ -47,5 +51,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_username"
         android:layout_toRightOf="@+id/sdv_topic_user_avatar"
-        android:text="topic name" />
+        tools:text="node name" />
 </RelativeLayout>
