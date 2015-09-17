@@ -29,12 +29,12 @@ public class StringUtils {
                 // 一天内
                 // 1h
                 long hours = diff / (1000 * 60 * 60);
-                time = hours + "小时前";
+                time = hours + " 小时 前";
             } else if (diff < 1000 * 60 * 60 * 24 * 7) {
                 // 7天内
                 // 1d
                 long days = diff / (1000 * 60 * 60 * 24);
-                time = days + "天前";
+                time = days + " 天 前";
             } else {
                 time = outDate.format(date);
             }

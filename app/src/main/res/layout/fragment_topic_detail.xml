@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/test"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="here is topic detail"/>
-    </ScrollView>
-</LinearLayout>
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_detail_title"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2015 Selenium 大会" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_detail_user_avatar"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_alignParentRight="true"
+                fresco:placeholderImage="@mipmap/ic_launcher"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/tv_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_detail_title"
+                tools:text="node name." />
+
+            <TextView
+                android:id="@+id/tv_detail_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_detail_title"
+                android:layout_toRightOf="@+id/tv_detail_name"
+                tools:text="username." />
+
+            <TextView
+                android:id="@+id/tv_detail_publish_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_detail_title"
+                android:layout_toRightOf="@+id/tv_detail_username"
+                tools:text="datetime." />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_detail_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="here is topic detail" />
+    </LinearLayout>
+</ScrollView>
