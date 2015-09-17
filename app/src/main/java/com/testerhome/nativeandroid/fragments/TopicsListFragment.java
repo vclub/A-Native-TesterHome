@@ -80,7 +80,7 @@ public class TopicsListFragment extends BaseFragment {
 
             @Override
             public void failure(RetrofitError error) {
-                if (swipeRefreshLayout.isRefreshing()){
+                if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()){
                     swipeRefreshLayout.setRefreshing(false);
                 }
                 Log.e("demo", "failure() called with: " + "error = [" + error + "]" + error.getUrl());
