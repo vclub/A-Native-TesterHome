@@ -1,7 +1,5 @@
 package com.testerhome.nativeandroid.oauth2;
 
-import android.util.Log;
-
 /**
  * Created by vclub on 15/9/18.
  */
@@ -63,11 +61,6 @@ public class AuthenticationService {
      * @return Url
      */
     public static String getAuthorizationUrl() {
-        Log.e("oauth", AUTHORIZATION_URL
-                + QUESTION_MARK + RESPONSE_TYPE_PARAM + EQUALS + RESPONSE_TYPE_VALUE
-                + AMPERSAND + CLIENT_ID_PARAM + EQUALS + API_KEY
-                + AMPERSAND + STATE_PARAM + EQUALS + STATE
-                + AMPERSAND + REDIRECT_URI_PARAM + EQUALS + REDIRECT_URI);
         return AUTHORIZATION_URL
                 + QUESTION_MARK + RESPONSE_TYPE_PARAM + EQUALS + RESPONSE_TYPE_VALUE
                 + AMPERSAND + CLIENT_ID_PARAM + EQUALS + API_KEY
