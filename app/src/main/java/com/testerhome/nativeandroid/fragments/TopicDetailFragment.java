@@ -46,7 +46,6 @@ public class TopicDetailFragment extends BaseFragment {
     WebView tvDetailBody;
 
     public static TopicDetailFragment newInstance(Integer topicId) {
-
         Bundle args = new Bundle();
         args.putInt("topic_id", topicId);
         TopicDetailFragment fragment = new TopicDetailFragment();
@@ -60,7 +59,6 @@ public class TopicDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         // getArguments().getString("topic_id");
-//        struct();
         tvDetailBody.getSettings().setUseWideViewPort(true);
         tvDetailBody.getSettings().setLoadWithOverviewMode(true);
         loadInfo();
@@ -80,16 +78,13 @@ public class TopicDetailFragment extends BaseFragment {
                         tvDetailTitle.setText(topicEntity.getTitle());
                         tvDetailName.setText(topicEntity.getNode_name() + ".");
                         tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getName()) ? "匿名用户" : topicEntity.getUser().getName());
-                        tvDetailPublishDate.setText("." + StringUtils.formatPublishDateTime(topicEntity.getCreated_at()) + ".");
+                        tvDetailPublishDate.setText(StringUtils.formatPublishDateTime(topicEntity.getCreated_at())
+                                + "." + topicEntity.getHits() + "次阅读");
                         sdvDetailUserAvatar.setImageURI(Uri.parse("https://testerhome.com" + topicEntity.getUser().getAvatar_url()));
 
 
                         showWebContent(topicEntity.getBody_html());
-//                        tvDetailBody.setMovementMethod(ScrollingMovementMethod.getInstance());// 设置可滚动
-//                        tvDetailBody.setMovementMethod(LinkMovementMethod.getInstance());//设置超链接可以打开网页
-//                        String htmlbody = String.format("<html><header><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /></header><body>%s</body></html>", topicEntity.getBody_html().replace("/photo/", "https://testerhome.com/photo/"));
-//                        tvDetailBody.loadDataWithBaseURL(null, htmlbody, "text/html", "UTF-8", null);
-//                        tvDetailBody.setText(Html.fromHtml(topicEntity.getBody_html(), imgGetter, null));
+
                     }
 
                     @Override

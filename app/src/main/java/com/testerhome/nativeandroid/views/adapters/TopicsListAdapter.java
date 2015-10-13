@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.testerhome.nativeandroid.Config;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.models.TopicEntity;
 import com.testerhome.nativeandroid.utils.StringUtils;
@@ -41,7 +42,7 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
 
         TopicEntity topic = mItems.get(position);
 
-        holder.topicUserAvatar.setImageURI(Uri.parse("https://testerhome.com" + topic.getUser().getAvatar_url()));
+        holder.topicUserAvatar.setImageURI(Uri.parse(Config.getImageUrl(topic.getUser().getAvatar_url())));
 
         holder.textViewTopicTitle.setText(topic.getTitle());
 
@@ -50,6 +51,8 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
         holder.topicPublishDate.setText(StringUtils.formatPublishDateTime(topic.getCreated_at()));
 
         holder.topicName.setText(topic.getNode_name());
+
+        holder.topicRepliesCount.setText(topic.getReplies_count() + "");
 
         holder.topicItem.setTag(topic.getId());
         holder.topicItem.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +93,9 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
 
         @Bind(R.id.tv_topic_name)
         TextView topicName;
+
+        @Bind(R.id.tv_topic_replies_count)
+        TextView topicRepliesCount;
 
         @Bind(R.id.rl_topic_item)
         View topicItem;

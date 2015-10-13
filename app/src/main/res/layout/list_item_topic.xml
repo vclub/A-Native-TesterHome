@@ -47,9 +47,19 @@
 
     <TextView
         android:id="@+id/tv_topic_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_username"
         android:layout_toRightOf="@+id/sdv_topic_user_avatar"
         tools:text="node name" />
+
+    <TextView
+        android:id="@+id/tv_topic_replies_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_dark"
+        android:layout_below="@+id/tv_topic_username"
+        android:layout_alignParentRight="true"
+        android:textColor="@android:color/white"
+        tools:text="replies count" />
 </RelativeLayout>

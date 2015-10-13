@@ -2,6 +2,7 @@ package com.testerhome.nativeandroid.networks;
 
 import com.testerhome.nativeandroid.models.TopicDetailResponse;
 import com.testerhome.nativeandroid.models.TopicsResponse;
+import com.testerhome.nativeandroid.models.UserResponse;
 
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -21,4 +22,15 @@ public interface TopicsService {
     @GET("/topics/{id}.json")
     void getTopicById(@Path("id") String id,
                       Callback<TopicDetailResponse> callback);
+
+
+    @GET("/users/{username}/topics.json")
+    void getUserTopics(@Path("username") String username,
+                       @Query("access_token") String accessToken,
+                       Callback<TopicsResponse> callback);
+
+    @GET("/users/{username}.json")
+    void getUserInfo(@Path("username") String username,
+                     @Query("access_token") String accessToken,
+                     Callback<UserResponse> callback);
 }

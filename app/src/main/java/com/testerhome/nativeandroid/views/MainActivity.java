@@ -1,21 +1,29 @@
 package com.testerhome.nativeandroid.views;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.testerhome.nativeandroid.Config;
 import com.testerhome.nativeandroid.R;
+import com.testerhome.nativeandroid.auth.TesterHomeAccountService;
 import com.testerhome.nativeandroid.fragments.HomeFragment;
+import com.testerhome.nativeandroid.models.TesterUser;
 import com.testerhome.nativeandroid.views.base.BaseActivity;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
@@ -28,6 +36,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUserInfo();
     }
 
     private void setupView() {
@@ -57,15 +71,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startOAuth2();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void startOAuth2(){
-        startActivity(new Intent(this, WebViewActivity.class));
     }
 
     @Override
@@ -90,5 +99,34 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Bind(R.id.sdv_account_avatar)
+    SimpleDraweeView mAccountAvatar;
+
+    @Bind(R.id.tv_account_username)
+    TextView mAccountUsername;
+
+    @Bind(R.id.tv_account_email)
+    TextView mAccountEmail;
+
+    @OnClick(R.id.sdv_account_avatar)
+    void onAvatarClick(){
+        if (!TextUtils.isEmpty(mTesterHomeAccount.getLogin())) {
+            startActivity(new Intent(this, UserProfileActivity.class));
+        } else {
+            startActivity(new Intent(this, WebViewActivity.class));
+        }
+    }
+
+    TesterUser mTesterHomeAccount;
+
+    private void updateUserInfo() {
+        mTesterHomeAccount = TesterHomeAccountService.getInstance(this).getActiveAccountInfo();
+        if (!TextUtils.isEmpty(mTesterHomeAccount.getLogin())) {
+            mAccountAvatar.setImageURI(Uri.parse(Config.getImageUrl(mTesterHomeAccount.getAvatar_url())));
+            mAccountUsername.setText(mTesterHomeAccount.getName());
+            mAccountEmail.setText(mTesterHomeAccount.getEmail());
+        }
     }
 }

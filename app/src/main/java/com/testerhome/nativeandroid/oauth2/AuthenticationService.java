@@ -24,12 +24,12 @@ public class AuthenticationService {
     private static final String STATE = "E3ZYKC1T6H2yP4z";
     //This is the url that LinkedIn Auth process will redirect to. We can put whatever we want that starts with http:// or https:// .
     //We use a made up url that we will intercept when redirecting. Avoid Uppercases.
-    public static final String REDIRECT_URI = "https://www.imrainbow.com/oauth/callback";
+    public static final String REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob";
     /*********************************************/
 
     //These are constants used for build the urls
-    private static final String AUTHORIZATION_URL = "https://testerhome.com/oauth/authorize";
-    private static final String ACCESS_TOKEN_URL = "https://testerhome.com/oauth/token";
+    public static final String AUTHORIZATION_URL = "https://testerhome.com/oauth/authorize";
+    public static final String ACCESS_TOKEN_URL = "https://testerhome.com/oauth/token";
     private static final String SECRET_KEY_PARAM = "client_secret";
     private static final String RESPONSE_TYPE_PARAM = "response_type";
     private static final String GRANT_TYPE_PARAM = "grant_type";

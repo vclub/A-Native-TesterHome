@@ -16,4 +16,8 @@ public class Config {
     public static final String TOPICS_TYPE_EXCELLENT = "excellent";
 
     public static final String BASE_URL = "http://testerhome.com/api/v3";
+
+    public static String getImageUrl(String imagePath){
+        return "https://testerhome.com".concat(imagePath);
+    }
 }
