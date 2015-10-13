@@ -3,25 +3,25 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/tv_detail_title"
                 style="@style/Base.TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="2015 Selenium 大会"
-                android:layout_toLeftOf="@+id/sdv_detail_user_avatar"/>
+                android:layout_toLeftOf="@+id/sdv_detail_user_avatar"
+                tools:text="2015 Selenium 大会" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv_detail_user_avatar"
@@ -56,10 +56,11 @@
         </RelativeLayout>
 
 
-        <TextView
+        <WebView
             android:id="@+id/tv_detail_body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="horizontal|vertical"
             tools:text="here is topic detail" />
     </LinearLayout>
 </ScrollView>

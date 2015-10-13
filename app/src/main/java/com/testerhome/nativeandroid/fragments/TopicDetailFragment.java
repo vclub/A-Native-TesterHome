@@ -1,12 +1,11 @@
 package com.testerhome.nativeandroid.fragments;
 
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -15,6 +14,9 @@ import com.testerhome.nativeandroid.models.TopicDetailEntity;
 import com.testerhome.nativeandroid.models.TopicDetailResponse;
 import com.testerhome.nativeandroid.networks.TesterHomeApi;
 import com.testerhome.nativeandroid.utils.StringUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,7 +43,7 @@ public class TopicDetailFragment extends BaseFragment {
     private String mTopicId;
 
     @Bind(R.id.tv_detail_body)
-    TextView tvDetailBody;
+    WebView tvDetailBody;
 
     public static TopicDetailFragment newInstance(Integer topicId) {
 
@@ -58,7 +60,9 @@ public class TopicDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         // getArguments().getString("topic_id");
-
+//        struct();
+        tvDetailBody.getSettings().setUseWideViewPort(true);
+        tvDetailBody.getSettings().setLoadWithOverviewMode(true);
         loadInfo();
     }
 
@@ -78,7 +82,14 @@ public class TopicDetailFragment extends BaseFragment {
                         tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getName()) ? "匿名用户" : topicEntity.getUser().getName());
                         tvDetailPublishDate.setText("." + StringUtils.formatPublishDateTime(topicEntity.getCreated_at()) + ".");
                         sdvDetailUserAvatar.setImageURI(Uri.parse("https://testerhome.com" + topicEntity.getUser().getAvatar_url()));
-                        tvDetailBody.setText(Html.fromHtml(topicEntity.getBody_html()));
+
+
+                        showWebContent(topicEntity.getBody_html());
+//                        tvDetailBody.setMovementMethod(ScrollingMovementMethod.getInstance());// 设置可滚动
+//                        tvDetailBody.setMovementMethod(LinkMovementMethod.getInstance());//设置超链接可以打开网页
+//                        String htmlbody = String.format("<html><header><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /></header><body>%s</body></html>", topicEntity.getBody_html().replace("/photo/", "https://testerhome.com/photo/"));
+//                        tvDetailBody.loadDataWithBaseURL(null, htmlbody, "text/html", "UTF-8", null);
+//                        tvDetailBody.setText(Html.fromHtml(topicEntity.getBody_html(), imgGetter, null));
                     }
 
                     @Override
@@ -88,12 +99,22 @@ public class TopicDetailFragment extends BaseFragment {
                 });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
+    private void showWebContent(String htmlBody){
+        String prompt = "";
+        AssetManager assetManager = getActivity().getResources().getAssets();
+
+        try{
+            InputStream inputStream = assetManager.open("upgrade.html");
+            byte[] b = new byte[inputStream.available()];
+            inputStream.read(b);
+            prompt = new String(b);
+            prompt = prompt.concat(htmlBody.replace("<img src=\"/photo/", "<img src=\"https://testerhome.com/photo/")).concat("</body></html>");
+            inputStream.close();
+        }catch (IOException e){
+            Log.e("", "Counldn't open updrage-alter.html", e);
+        }
+
+        tvDetailBody.loadDataWithBaseURL(null, prompt, "text/html", "utf-8", null);
     }
 
     @Override

@@ -59,6 +59,19 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
                 mContext.startActivity(new Intent(mContext, TopicDetailActivity.class).putExtra("topic_id", topicId));
             }
         });
+        if (position == mItems.size() - 1 && mListener != null) {
+            mListener.onListEnded();
+        }
+    }
+
+    private EndlessListener mListener;
+
+    public void setListener(EndlessListener mListener) {
+        this.mListener = mListener;
+    }
+
+    public interface EndlessListener {
+        void onListEnded();
     }
 
     public class TopicItemViewHolder extends RecyclerView.ViewHolder {

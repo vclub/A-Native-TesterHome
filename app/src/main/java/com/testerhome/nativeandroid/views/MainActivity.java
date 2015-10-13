@@ -1,24 +1,27 @@
 package com.testerhome.nativeandroid.views;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTabHost;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.fragments.HomeFragment;
-import com.testerhome.nativeandroid.fragments.JobFragment;
-import com.testerhome.nativeandroid.fragments.MyFragment;
-import com.testerhome.nativeandroid.fragments.TopicFragment;
 import com.testerhome.nativeandroid.views.base.BaseActivity;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    @Bind(android.R.id.tabhost)
-    FragmentTabHost mTabHost;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +31,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupView() {
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        View indicator = getLayoutInflater().inflate(R.layout.home_indicator, null);
-        mTabHost.addTab(mTabHost.newTabSpec("home").setIndicator(indicator), HomeFragment.class, null);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        indicator = getLayoutInflater().inflate(R.layout.topic_indicator, null);
-        mTabHost.addTab(mTabHost.newTabSpec("topic").setIndicator(indicator), TopicFragment.class, null);
-
-        indicator = getLayoutInflater().inflate(R.layout.job_indicator, null);
-        mTabHost.addTab(mTabHost.newTabSpec("job").setIndicator(indicator), JobFragment.class, null);
-
-        indicator = getLayoutInflater().inflate(R.layout.my_indicator, null);
-        mTabHost.addTab(mTabHost.newTabSpec("config").setIndicator(indicator), MyFragment.class, null);
-
-        mTabHost.getTabWidget().setDividerDrawable(null);
+        getSupportFragmentManager().beginTransaction().replace(R.id.realtabcontent, new HomeFragment()).commit();
     }
 
     @Override
@@ -61,9 +57,38 @@ public class MainActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startOAuth2();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startOAuth2(){
+        startActivity(new Intent(this, WebViewActivity.class));
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        // Handle navigation view item clicks here.
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_camara) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

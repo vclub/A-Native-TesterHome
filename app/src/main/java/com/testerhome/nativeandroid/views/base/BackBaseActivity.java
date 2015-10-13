@@ -12,8 +12,8 @@ public abstract class BackBaseActivity extends BaseActivity {
     @Override
     protected void setupToolbar() {
         super.setupToolbar();
-        if (toobar != null)
-            toobar.setNavigationIcon(R.drawable.abc_ic_ab_back);
+        if (toolbar != null)
+            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back);
     }
 
     @Override

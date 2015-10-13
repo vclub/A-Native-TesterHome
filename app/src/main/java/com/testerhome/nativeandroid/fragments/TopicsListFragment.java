@@ -28,6 +28,8 @@ public class TopicsListFragment extends BaseFragment {
     @Bind(R.id.srl_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    private int mNextCursor = 1;
+
     private TopicsListAdapter mAdatper;
 
     private String type;
@@ -54,6 +56,16 @@ public class TopicsListFragment extends BaseFragment {
 
     private void setupView() {
         mAdatper = new TopicsListAdapter(getActivity());
+        mAdatper.setListener(new TopicsListAdapter.EndlessListener() {
+            @Override
+            public void onListEnded() {
+                if (mNextCursor > 0) {
+                    mNextCursor = mNextCursor + 1;
+                    loadTopics();
+                }
+            }
+        });
+
         recyclerViewTopicList.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewTopicList.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL_LIST));
@@ -71,14 +83,22 @@ public class TopicsListFragment extends BaseFragment {
 
     private void loadTopics() {
         TesterHomeApi.getInstance().getTopicsService().getTopicsByType(type,
+                mNextCursor,
                 new Callback<TopicsResponse>() {
                     @Override
                     public void success(TopicsResponse topicsResponse, Response response) {
+
                         if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
                         if (topicsResponse.getTopics().size() > 0) {
-                            mAdatper.setItems(topicsResponse.getTopics());
+                            if (mNextCursor == 1) {
+                                mAdatper.setItems(topicsResponse.getTopics());
+                            } else {
+                                mAdatper.addItems(topicsResponse.getTopics());
+                            }
+                        } else {
+                            mNextCursor = 0;
                         }
                     }
 

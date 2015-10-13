@@ -19,7 +19,8 @@ public class BaseActivity extends AppCompatActivity {
 
     @Nullable
     @Bind(R.id.toolbar)
-    Toolbar toobar;
+    protected
+    Toolbar toolbar;
 
     @Nullable
     @Bind(R.id.toolbar_title)
@@ -34,8 +35,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void setupToolbar(){
-        if (toobar != null){
-            setSupportActionBar(toobar);
+        if (toolbar != null){
+            setSupportActionBar(toolbar);
         }
     }
 
