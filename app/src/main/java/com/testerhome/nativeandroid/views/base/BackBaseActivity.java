@@ -13,7 +13,7 @@ public abstract class BackBaseActivity extends BaseActivity {
     protected void setupToolbar() {
         super.setupToolbar();
         if (toolbar != null)
-            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back);
+            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
     }
 
     @Override

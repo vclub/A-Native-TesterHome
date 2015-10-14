@@ -38,6 +38,17 @@
             android:name=".views.WebViewActivity"
             android:configChanges="keyboardHidden|screenSize|screenLayout" />
 
+        <activity
+            android:name=".views.UserProfileActivity"
+            android:configChanges="keyboardHidden|screenSize|screenLayout" />
+
+        <activity
+            android:name=".views.AccountFavoriteActivity"
+            android:configChanges="keyboardHidden|screenSize|screenLayout" />
+        <activity
+            android:name=".views.AccountTopicsActivity"
+            android:configChanges="keyboardHidden|screenSize|screenLayout" />
+
         <service
             android:name=".auth.UserAccountService"
             tools:ignore="ExportedService">

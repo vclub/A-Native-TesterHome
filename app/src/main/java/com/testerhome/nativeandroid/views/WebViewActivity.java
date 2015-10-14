@@ -71,6 +71,7 @@ public class WebViewActivity extends BackBaseActivity {
 
         });
 
+        Log.e("test", AuthenticationService.getAuthorizationUrl());
         mWebView.loadUrl(AuthenticationService.getAuthorizationUrl());
 
     }

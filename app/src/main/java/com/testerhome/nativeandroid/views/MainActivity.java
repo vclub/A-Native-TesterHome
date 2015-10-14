@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @OnClick(R.id.sdv_account_avatar)
     void onAvatarClick(){
-        if (!TextUtils.isEmpty(mTesterHomeAccount.getLogin())) {
+        if (mTesterHomeAccount != null && !TextUtils.isEmpty(mTesterHomeAccount.getLogin())) {
             startActivity(new Intent(this, UserProfileActivity.class));
         } else {
             startActivity(new Intent(this, WebViewActivity.class));

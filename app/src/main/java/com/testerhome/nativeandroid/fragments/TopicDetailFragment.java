@@ -109,6 +109,7 @@ public class TopicDetailFragment extends BaseFragment {
             Log.e("", "Counldn't open updrage-alter.html", e);
         }
 
+        tvDetailBody.setBackgroundColor(0);
         tvDetailBody.loadDataWithBaseURL(null, prompt, "text/html", "utf-8", null);
     }
 
