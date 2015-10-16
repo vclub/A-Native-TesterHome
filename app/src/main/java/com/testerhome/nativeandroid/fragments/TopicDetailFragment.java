@@ -77,7 +77,7 @@ public class TopicDetailFragment extends BaseFragment {
                         TopicDetailEntity topicEntity = topicDetailResponse.getTopic();
                         tvDetailTitle.setText(topicEntity.getTitle());
                         tvDetailName.setText(topicEntity.getNode_name() + ".");
-                        tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getName()) ? "匿名用户" : topicEntity.getUser().getName());
+                        tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getLogin()) ? "匿名用户" : topicEntity.getUser().getLogin());
                         tvDetailPublishDate.setText(StringUtils.formatPublishDateTime(topicEntity.getCreated_at())
                                 + "." + topicEntity.getHits() + "次阅读");
                         sdvDetailUserAvatar.setImageURI(Uri.parse("https://testerhome.com" + topicEntity.getUser().getAvatar_url()));

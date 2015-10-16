@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jauker.widget.BadgeView;
 import com.testerhome.nativeandroid.Config;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.models.TopicEntity;
@@ -46,14 +47,16 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
 
         holder.textViewTopicTitle.setText(topic.getTitle());
 
-        holder.topicUsername.setText(TextUtils.isEmpty(topic.getUser().getName())?"匿名用户":topic.getUser().getName());
+        holder.topicUsername.setText(TextUtils.isEmpty(topic.getUser().getLogin()) ? "匿名用户" : topic.getUser().getLogin());
 
         holder.topicPublishDate.setText(StringUtils.formatPublishDateTime(topic.getCreated_at()));
 
         holder.topicName.setText(topic.getNode_name());
 
-        holder.topicRepliesCount.setText(topic.getReplies_count() + "");
-
+//        holder.topicRepliesCount.setText(topic.getReplies_count() + "");
+        holder.badgeView.setTargetView(holder.topicRepliesCount);
+        holder.badgeView.setHideOnNull(false);
+        holder.badgeView.setBadgeCount(topic.getReplies_count());
         holder.topicItem.setTag(topic.getId());
         holder.topicItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +103,11 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
         @Bind(R.id.rl_topic_item)
         View topicItem;
 
+        BadgeView badgeView;
+
         public TopicItemViewHolder(View itemView) {
             super(itemView);
+            badgeView= new BadgeView(itemView.getContext());
             ButterKnife.bind(this, itemView);
         }
     }
