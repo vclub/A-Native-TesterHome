@@ -1,6 +1,7 @@
 package com.testerhome.nativeandroid.networks;
 
 import com.testerhome.nativeandroid.models.TopicDetailResponse;
+import com.testerhome.nativeandroid.models.TopicReplyResponse;
 import com.testerhome.nativeandroid.models.TopicsResponse;
 import com.testerhome.nativeandroid.models.UserResponse;
 
@@ -40,4 +41,9 @@ public interface TopicsService {
     void getUserInfo(@Path("username") String username,
                      @Query("access_token") String accessToken,
                      Callback<UserResponse> callback);
+
+    @GET("/topics/{id}/replies.json")
+    void getTopicsReplies(@Path("id") String id,
+                          @Query("offset") int page,
+                          Callback<TopicReplyResponse> callback);
 }

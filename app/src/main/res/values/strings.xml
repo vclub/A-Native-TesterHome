@@ -13,4 +13,5 @@
     <string name="main_tab_topic">话题</string>
     <string name="main_tab_job">招聘</string>
     <string name="main_tab_my">我的</string>
+    <string name="reply_topic">回帖信息</string>
 </resources>
