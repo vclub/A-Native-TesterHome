@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -53,13 +53,13 @@
                 android:layout_below="@+id/tv_detail_name"
                 tools:text="datetime." />
         </RelativeLayout>
-
-
         <WebView
             android:id="@+id/tv_detail_body"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scrollbars="horizontal|vertical"
             tools:text="here is topic detail" />
+
     </LinearLayout>
+
 </ScrollView>
