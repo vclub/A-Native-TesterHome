@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +20,7 @@ import com.testerhome.nativeandroid.Config;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.auth.TesterHomeAccountService;
 import com.testerhome.nativeandroid.fragments.HomeFragment;
+import com.testerhome.nativeandroid.fragments.TopicsListFragment;
 import com.testerhome.nativeandroid.models.TesterUser;
 import com.testerhome.nativeandroid.views.base.BaseActivity;
 
@@ -31,6 +35,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Bind(R.id.nav_view)
     NavigationView navigationView;
 
+    private Fragment homeFragment;
+    private Fragment jobFragment;
+    private Fragment topicFragment;
+    private Fragment myFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +59,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.realtabcontent, new HomeFragment()).commit();
+        navigationView.setCheckedItem(R.id.nav_home);
+        homeFragment = new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.realtabcontent,homeFragment).commit();
     }
 
     @Override
@@ -80,15 +89,38 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         // Handle navigation view item clicks here.
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction =  fm.beginTransaction();
+        hideAllFragment(fragmentTransaction);
+
+
+
+
         int id = menuItem.getItemId();
 
-        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            if (homeFragment==null){
+                homeFragment = new HomeFragment();
+                fragmentTransaction.add(R.id.realtabcontent,homeFragment);
+            }
+            fragmentTransaction.show(homeFragment);
+        } else if (id == R.id.nav_topic) {
+            if (topicFragment==null){
+                topicFragment = TopicsListFragment.newInstance(Config.TOPICS_TYPE_LAST_ACTIVED);
+                fragmentTransaction.add(R.id.realtabcontent,topicFragment);
 
-        } else if (id == R.id.nav_slideshow) {
+            }
+            fragmentTransaction.show(topicFragment);
+        } else if (id == R.id.nav_job) {
+            if (jobFragment==null){
+                jobFragment = TopicsListFragment.newInstance(Config.TOPIC_JOB_NODEID);
+                fragmentTransaction.add(R.id.realtabcontent,jobFragment);
 
-        } else if (id == R.id.nav_manage) {
+            }
+            fragmentTransaction.show(jobFragment);
+
+        } else if (id == R.id.nav_my) {
 
         } else if (id == R.id.nav_share) {
 
@@ -98,7 +130,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        fragmentTransaction.commit();
         return true;
+    }
+
+    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
+
+        if(homeFragment!=null){
+            fragmentTransaction.hide(homeFragment);
+        }
+        if(topicFragment!=null){
+            fragmentTransaction.hide(topicFragment);
+        }
+        if(jobFragment!=null){
+            fragmentTransaction.hide(jobFragment);
+        }
+        if(myFragment!=null){
+            fragmentTransaction.hide(myFragment);
+        }
     }
 
     @Bind(R.id.sdv_account_avatar)
