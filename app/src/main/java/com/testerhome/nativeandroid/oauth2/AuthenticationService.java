@@ -28,7 +28,13 @@ public class AuthenticationService {
     /*********************************************/
 
     //These are constants used for build the urls
+
+    public static final String BASEURL = "http://testerhome.com";
+    public static final String HTTPS_BASEURL = "https://testerhome.com";
+    public static final String LOGIN_URL = "http://testerhome.com/account/sign_in";
+    public static final String HTTPS_LOGIN_URL = "https://testerhome.com/account/sign_in";
     public static final String AUTHORIZATION_URL = "https://testerhome.com/oauth/authorize";
+    public static final String HTTP_AUTHORIZATION_URL = "http://testerhome.com/oauth/authorize";
     public static final String ACCESS_TOKEN_URL = "https://testerhome.com/oauth/token";
     private static final String SECRET_KEY_PARAM = "client_secret";
     private static final String RESPONSE_TYPE_PARAM = "response_type";
