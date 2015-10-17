@@ -28,15 +28,24 @@ public class TopicsListFragment extends BaseFragment {
     @Bind(R.id.srl_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    private int mNextCursor = 1;
+    private int mNextCursor = 0;
 
     private TopicsListAdapter mAdatper;
 
     private String type;
+    private int nodeId;
 
     public static TopicsListFragment newInstance(String type) {
         Bundle args = new Bundle();
         args.putString("type", type);
+        TopicsListFragment fragment = new TopicsListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static TopicsListFragment newInstance(int  nodeId) {
+        Bundle args = new Bundle();
+        args.putInt("nodeId", nodeId);
         TopicsListFragment fragment = new TopicsListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -50,7 +59,11 @@ public class TopicsListFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         type = getArguments().getString("type");
+        if(type == null){
+            nodeId = getArguments().getInt("nodeId");
+        }
         setupView();
     }
 
@@ -60,7 +73,6 @@ public class TopicsListFragment extends BaseFragment {
             @Override
             public void onListEnded() {
                 if (mNextCursor > 0) {
-                    mNextCursor = mNextCursor + 1;
                     loadTopics();
                 }
             }
@@ -74,6 +86,7 @@ public class TopicsListFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mNextCursor = 0;
                 loadTopics();
             }
         });
@@ -82,34 +95,68 @@ public class TopicsListFragment extends BaseFragment {
     }
 
     private void loadTopics() {
-        TesterHomeApi.getInstance().getTopicsService().getTopicsByType(type,
-                mNextCursor,
-                new Callback<TopicsResponse>() {
-                    @Override
-                    public void success(TopicsResponse topicsResponse, Response response) {
 
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                        if (topicsResponse.getTopics().size() > 0) {
-                            if (mNextCursor == 1) {
-                                mAdatper.setItems(topicsResponse.getTopics());
-                            } else {
-                                mAdatper.addItems(topicsResponse.getTopics());
-                            }
-                        } else {
-                            mNextCursor = 0;
-                        }
-                    }
+        if(type!=null){
+            TesterHomeApi.getInstance().getTopicsService().getTopicsByType(type,
+                    mNextCursor*20,
+                    new Callback<TopicsResponse>() {
+                        @Override
+                        public void success(TopicsResponse topicsResponse, Response response) {
+                            loadSuccess(topicsResponse);
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
                         }
-                        Log.e("demo", "failure() called with: " + "error = [" + error + "]"
-                                + error.getUrl());
-                    }
-                });
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            loadFail(error);
+                        }
+                    });
+        }else{
+            TesterHomeApi.getInstance().getTopicsService().getTopicsByNodeId(nodeId,
+                    mNextCursor*20,
+                    new Callback<TopicsResponse>() {
+                        @Override
+                        public void success(TopicsResponse topicsResponse, Response response) {
+                            loadSuccess(topicsResponse);
+
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            loadFail(error);
+                        }
+                    });
+        }
+
+    }
+
+    private void loadSuccess(TopicsResponse topicsResponse) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+        if (topicsResponse.getTopics().size() > 0) {
+            if (mNextCursor == 0) {
+                mAdatper.setItems(topicsResponse.getTopics());
+            } else {
+                mAdatper.addItems(topicsResponse.getTopics());
+            }
+            if(topicsResponse.getTopics().size()==20){
+                mNextCursor += 1;
+            }else{
+                mNextCursor = 0;
+            }
+
+        } else {
+            mNextCursor = 0;
+        }
+    }
+
+    private void loadFail(RetrofitError error){
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        Log.e("demo", "failure() called with: " + "error = [" + error + "]"
+                + error.getUrl());
     }
 }

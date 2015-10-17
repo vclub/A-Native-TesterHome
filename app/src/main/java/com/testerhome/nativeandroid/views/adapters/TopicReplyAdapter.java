@@ -1,11 +1,13 @@
 package com.testerhome.nativeandroid.views.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -45,25 +47,32 @@ public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ReplyViewHolder holder = (ReplyViewHolder)viewHolder;
+
+        holder.topicReplyLayout.setVisibility(View.VISIBLE);
+        holder.deletedFloor.setVisibility(View.GONE);
         holder.topic = mItems.get(position);
-        holder.topicTime.setText(StringUtils.formatPublishDateTime(holder.topic.getCreated_at()));
-        holder.topicItemAuthor.setText(holder.topic.getUser().getLogin());
-        String html = holder.topic.getBody_html();
+        if(holder.topic.isDeleted()){
+            holder.topicReplyLayout.setVisibility(View.GONE);
+            holder.deletedFloor.setVisibility(View.VISIBLE);
+            holder.deletedFloor.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
+        }else{
+            holder.topicTime.setText(StringUtils.formatPublishDateTime(holder.topic.getCreated_at()));
+            holder.topicItemAuthor.setText(holder.topic.getUser().getLogin());
+            String html = holder.topic.getBody_html();
 //            html = html.replaceAll("src=\"/photo", "src=\"" + Config.BASEURL + "/photo");
-        holder.topicItemBody.setText(Html.fromHtml(html));
-        holder.userAvatar.setImageURI(Uri.parse(Config.getImageUrl(holder.topic.getUser().getAvatar_url())));
+            holder.topicItemBody.setText(Html.fromHtml(html));
+            holder.userAvatar.setImageURI(Uri.parse(Config.getImageUrl(holder.topic.getUser().getAvatar_url())));
 
-
-        if (position == mItems.size() - 1 && mListener != null) {
-            mListener.onListEnded();
+            if (position == mItems.size() - 1 && mListener != null) {
+                mListener.onListEnded();
+            }
         }
 
 
 
+
+
     }
-
-
-
 
 
     private EndlessListener mListener;
@@ -80,6 +89,9 @@ public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
 
     public static class ReplyViewHolder extends RecyclerView.ViewHolder{
 
+
+        @Bind(R.id.id_topic_reply_layout)
+        RelativeLayout topicReplyLayout;
         @Bind(R.id.id_topic_item_author)
         TextView topicItemAuthor;
 
@@ -90,6 +102,9 @@ public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
 
         @Bind(R.id.id_user_avatar)
         SimpleDraweeView userAvatar;
+
+        @Bind(R.id.id_deleted_floor)
+        TextView deletedFloor;
 
         public TopicReplyEntity topic;
 

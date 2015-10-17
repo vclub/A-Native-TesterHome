@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
+    android:orientation="vertical"
+    android:gravity="center"
     >
+    <RelativeLayout
+        android:id="@+id/id_topic_reply_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/id_user_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="180dp"
+            fresco:actualImageScaleType="focusCrop"
+            />
+        <TextView
+            android:id="@+id/id_topic_item_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/id_user_avatar"
+            android:layout_alignTop="@+id/id_user_avatar"
+            android:layout_marginLeft="20dp"
+            android:textSize="14sp"
+            />
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/id_user_avatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        fresco:roundAsCircle="true"
-        fresco:roundedCornerRadius="180dp"
-        fresco:actualImageScaleType="focusCrop"
-        />
+        <TextView
+            android:id="@+id/id_topic_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/id_topic_item_author"
+            android:layout_marginLeft="2dp"
+            android:layout_alignTop="@id/id_user_avatar"
+
+            />
+
+        <TextView
+            android:id="@+id/id_topic_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/id_topic_item_author"
+            android:layout_toRightOf="@+id/id_user_avatar"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
+            />
+    </RelativeLayout>
+
     <TextView
-        android:id="@+id/id_topic_item_author"
-        android:layout_width="wrap_content"
+        android:id="@+id/id_deleted_floor"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_toRightOf="@+id/id_user_avatar"
-        android:layout_alignTop="@+id/id_user_avatar"
-        android:layout_marginLeft="20dp"
-        android:textSize="14sp"
-        />
-
-    <TextView
-        android:id="@+id/id_topic_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/id_topic_item_author"
-        android:layout_marginLeft="2dp"
-        android:layout_alignTop="@id/id_user_avatar"
-
-        />
-
-    <TextView
-        android:id="@+id/id_topic_item_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/id_topic_item_author"
-        android:layout_toRightOf="@+id/id_user_avatar"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="5dp"
+        android:textSize="17sp"
+        android:text="该楼层已被删除"
+        android:gravity="center"
+        android:visibility="gone"
         />
 
 
-</RelativeLayout>
+</LinearLayout>

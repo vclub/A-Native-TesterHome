@@ -96,8 +96,6 @@ public class TopicReplyFragment extends BaseFragment {
                         }
                         if (topicReplyResponse.getTopicReply().size() > 0) {
 
-
-
                             if (mNextCursor == 0) {
                                 mAdatper.setItems(topicReplyResponse.getTopicReply());
                             } else {
@@ -109,7 +107,6 @@ public class TopicReplyFragment extends BaseFragment {
                             }else{
                                 mNextCursor = 0;
                             }
-
                         } else {
                             mNextCursor = 0;
                         }

@@ -23,6 +23,9 @@ public class TopicDetailActivity extends BackBaseActivity {
     Toolbar toolbar;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
