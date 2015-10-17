@@ -55,7 +55,7 @@ public class WebViewActivity extends BackBaseActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
                 // http://testerhome.com/oauth/authorize/
-                if (url.startsWith(AuthenticationService.AUTHORIZATION_URL)) {
+                if (url.startsWith(AuthenticationService.HTTP_AUTHORIZATION_URL)) {
                     try {
                         auth_code = url.substring(url.lastIndexOf("/") + 1);
                         //Generate URL for requesting Access Token
@@ -65,8 +65,14 @@ public class WebViewActivity extends BackBaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }else if(url.equals(AuthenticationService.LOGIN_URL)){
+                    url = AuthenticationService.HTTPS_LOGIN_URL;
+                }else if(url.equals(AuthenticationService.BASEURL)){
+                    url = AuthenticationService.HTTPS_BASEURL;
                 }
-                return super.shouldOverrideUrlLoading(view, url);
+//                return super.shouldOverrideUrlLoading(view, url);
+                view.loadUrl(url);
+                return true;
             }
 
         });
