@@ -18,6 +18,11 @@ public class Config {
     public static final String BASE_URL = "https://testerhome.com/api/v3";
 
     public static String getImageUrl(String imagePath){
-        return "https://testerhome.com".concat(imagePath);
+        if(!imagePath.contains("https://testerhome.com")){
+            return "https://testerhome.com".concat(imagePath);
+        }else{
+            return imagePath;
+        }
+
     }
 }

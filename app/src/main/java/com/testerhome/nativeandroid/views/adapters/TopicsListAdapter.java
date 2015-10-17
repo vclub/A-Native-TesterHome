@@ -53,7 +53,6 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
 
         holder.topicName.setText(topic.getNode_name());
 
-//        holder.topicRepliesCount.setText(topic.getReplies_count() + "");
         holder.badgeView.setTargetView(holder.topicRepliesCount);
         holder.badgeView.setHideOnNull(false);
         holder.badgeView.setBadgeCount(topic.getReplies_count());

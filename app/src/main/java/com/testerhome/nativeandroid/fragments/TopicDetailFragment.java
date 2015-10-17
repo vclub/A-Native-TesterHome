@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.testerhome.nativeandroid.Config;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.models.TopicDetailEntity;
 import com.testerhome.nativeandroid.models.TopicDetailResponse;
@@ -80,7 +81,7 @@ public class TopicDetailFragment extends BaseFragment {
                         tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getLogin()) ? "匿名用户" : topicEntity.getUser().getLogin());
                         tvDetailPublishDate.setText(StringUtils.formatPublishDateTime(topicEntity.getCreated_at())
                                 + "." + topicEntity.getHits() + "次阅读");
-                        sdvDetailUserAvatar.setImageURI(Uri.parse("https://testerhome.com" + topicEntity.getUser().getAvatar_url()));
+                        sdvDetailUserAvatar.setImageURI(Uri.parse(Config.getImageUrl(topicEntity.getUser().getAvatar_url())));
 
 
                         showWebContent(topicEntity.getBody_html());

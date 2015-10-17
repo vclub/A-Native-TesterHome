@@ -17,5 +17,6 @@
         android:gravity="center"
         android:singleLine="true"
         tools:text="here is title" />
+    
 
 </android.support.v7.widget.Toolbar>
