@@ -34,6 +34,7 @@ public class TopicsListFragment extends BaseFragment {
 
     private String type;
     private int nodeId;
+    private boolean isViewLoad = false;
 
     public static TopicsListFragment newInstance(String type) {
         Bundle args = new Bundle();
@@ -57,14 +58,16 @@ public class TopicsListFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        type = getArguments().getString("type");
-        if(type == null){
-            nodeId = getArguments().getInt("nodeId");
+        if(!isViewLoad){
+            type = getArguments().getString("type");
+            if(type == null){
+                nodeId = getArguments().getInt("nodeId");
+            }
+            setupView();
         }
-        setupView();
+        isViewLoad = true;
     }
 
     private void setupView() {
@@ -102,6 +105,7 @@ public class TopicsListFragment extends BaseFragment {
                     new Callback<TopicsResponse>() {
                         @Override
                         public void success(TopicsResponse topicsResponse, Response response) {
+                            Log.d("topic",type+"i load");
                             loadSuccess(topicsResponse);
 
                         }
