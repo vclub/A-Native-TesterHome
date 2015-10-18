@@ -41,18 +41,18 @@ public class TopicReplyAdapter extends BaseAdapter<TopicReplyEntity> {
         ReplyViewHolder holder = (ReplyViewHolder) viewHolder;
 
         holder.topic = mItems.get(position);
-        if(holder.topic.isDeleted()){
+        if (holder.topic.isDeleted()) {
             holder.userAvatar.setVisibility(View.INVISIBLE);
             holder.topicItemAuthor.setVisibility(View.INVISIBLE);
             holder.topicTime.setVisibility(View.INVISIBLE);
             holder.topicItemBody.setText("该楼层已被删除");
             holder.topicItemBody.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-        }else{
+        } else {
             holder.userAvatar.setVisibility(View.VISIBLE);
             holder.topicItemAuthor.setVisibility(View.VISIBLE);
             holder.topicTime.setVisibility(View.VISIBLE);
             holder.topicTime.setText(StringUtils.formatPublishDateTime(holder.topic.getCreated_at()));
-            holder.topicItemAuthor.setText(holder.topic.getUser().getLogin());
+            holder.topicItemAuthor.setText(holder.topic.getUser().getName());
             String html = holder.topic.getBody_html();
 //            html = html.replaceAll("src=\"/photo", "src=\"" + Config.BASEURL + "/photo");
             holder.topicItemBody.setText(Html.fromHtml(html));
