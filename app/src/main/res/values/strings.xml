@@ -14,4 +14,11 @@
     <string name="main_tab_job">招聘</string>
     <string name="main_tab_my">我的</string>
     <string name="reply_topic">回帖信息</string>
+    <string name="collect_topic">我收藏的帖子</string>
+    <string name="created_topic">我发表的帖子</string>
+    <string name="notification">通知</string>
+    <string name="company">公司:</string>
+    <string name="tag_line">签名:</string>
+    <string name="introduce">简介:</string>
+    <string name="follow">开始关注你了。</string>
 </resources>

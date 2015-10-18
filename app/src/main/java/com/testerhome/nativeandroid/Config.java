@@ -18,6 +18,9 @@ public class Config {
     public static final String TOPICS_TYPE_LAST_ACTIVED = "last_actived";
     public static final int TOPIC_JOB_NODEID = 19;
     public static final String BASE_URL = "https://testerhome.com/api/v3";
+    public static final String TOPICREPLY = "TopicReply";
+    public static final String FOLLOW = "Follow";
+    public static final String TOPIC = "Topic";
 
     public static String getImageUrl(String imagePath){
         if(!imagePath.contains("https://testerhome.com")){

@@ -21,6 +21,7 @@ import com.testerhome.nativeandroid.Config;
 import com.testerhome.nativeandroid.R;
 import com.testerhome.nativeandroid.auth.TesterHomeAccountService;
 import com.testerhome.nativeandroid.fragments.HomeFragment;
+import com.testerhome.nativeandroid.fragments.MyFragment;
 import com.testerhome.nativeandroid.fragments.TopicsListFragment;
 import com.testerhome.nativeandroid.models.TesterUser;
 import com.testerhome.nativeandroid.views.base.BaseActivity;
@@ -63,6 +64,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setCheckedItem(R.id.nav_home);
         homeFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.realtabcontent,homeFragment).commit();
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK){
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction =  fm.beginTransaction();
+            if(myFragment==null){
+                myFragment = new MyFragment();
+                fragmentTransaction.add(R.id.realtabcontent,myFragment);
+            }
+            fragmentTransaction.show(myFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
     }
 
     @Override
@@ -122,6 +139,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             fragmentTransaction.show(jobFragment);
 
         } else if (id == R.id.nav_my) {
+            if (!(mTesterHomeAccount != null && !TextUtils.isEmpty(mTesterHomeAccount.getLogin()))) {
+                startActivityForResult(new Intent(this, WebViewActivity.class), 1);
+            }else{
+                if(myFragment==null){
+                    myFragment = new MyFragment();
+                    fragmentTransaction.add(R.id.realtabcontent,myFragment);
+                }
+                fragmentTransaction.show(myFragment);
+            }
 
         } else if (id == R.id.nav_share) {
 

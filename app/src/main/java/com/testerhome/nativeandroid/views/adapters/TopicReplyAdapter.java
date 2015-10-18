@@ -40,19 +40,23 @@ public class TopicReplyAdapter extends BaseAdapter<TopicReplyEntity> {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ReplyViewHolder holder = (ReplyViewHolder) viewHolder;
 
-        holder.topicReplyLayout.setVisibility(View.VISIBLE);
-        holder.deletedFloor.setVisibility(View.GONE);
         holder.topic = mItems.get(position);
         if (holder.topic.isDeleted()) {
-            holder.topicReplyLayout.setVisibility(View.GONE);
-            holder.deletedFloor.setVisibility(View.VISIBLE);
-            holder.deletedFloor.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
+            holder.userAvatar.setVisibility(View.INVISIBLE);
+            holder.topicItemAuthor.setVisibility(View.INVISIBLE);
+            holder.topicTime.setVisibility(View.INVISIBLE);
+            holder.topicItemBody.setText("该楼层已被删除");
+            holder.topicItemBody.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
         } else {
+            holder.userAvatar.setVisibility(View.VISIBLE);
+            holder.topicItemAuthor.setVisibility(View.VISIBLE);
+            holder.topicTime.setVisibility(View.VISIBLE);
             holder.topicTime.setText(StringUtils.formatPublishDateTime(holder.topic.getCreated_at()));
             holder.topicItemAuthor.setText(holder.topic.getUser().getName());
             String html = holder.topic.getBody_html();
 //            html = html.replaceAll("src=\"/photo", "src=\"" + Config.BASEURL + "/photo");
             holder.topicItemBody.setText(Html.fromHtml(html));
+            holder.topicItemBody.getPaint().setFlags(0);
             holder.userAvatar.setImageURI(Uri.parse(Config.getImageUrl(holder.topic.getUser().getAvatar_url())));
 
             if (position == mItems.size() - 1 && mListener != null) {
@@ -85,9 +89,6 @@ public class TopicReplyAdapter extends BaseAdapter<TopicReplyEntity> {
 
         @Bind(R.id.id_user_avatar)
         SimpleDraweeView userAvatar;
-
-        @Bind(R.id.id_deleted_floor)
-        TextView deletedFloor;
 
         public TopicReplyEntity topic;
 

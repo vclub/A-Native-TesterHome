@@ -13,7 +13,25 @@ public class TesterUser {
     private String website;
     private String github;
     private String email;
+    private String company;
     private String access_token;
+    private String tagline;
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     public String getId() {
         return id;

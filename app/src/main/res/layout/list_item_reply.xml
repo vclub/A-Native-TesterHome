@@ -14,8 +14,8 @@
         >
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/id_user_avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             fresco:roundAsCircle="true"
             fresco:roundedCornerRadius="180dp"
             fresco:actualImageScaleType="focusCrop"
@@ -52,16 +52,6 @@
             android:layout_marginRight="5dp"
             />
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/id_deleted_floor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:text="该楼层已被删除"
-        android:gravity="center"
-        android:visibility="gone"
-        />
 
 
 </LinearLayout>

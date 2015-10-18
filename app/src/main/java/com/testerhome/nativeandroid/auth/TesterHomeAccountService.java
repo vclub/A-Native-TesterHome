@@ -24,6 +24,9 @@ public class TesterHomeAccountService {
     private final String KEY_USER_DATA_GITHUB = "github";
     private final String KEY_USER_DATA_EMAIL = "email";
     private final String KEY_USER_DATA_TOKEN = "access_token";
+    private final String KEY_USER_DATA_COMPANY = "company";
+    private final String KEY_USER_DATA_TAGLINE = "tagline";
+
 
     private Account activeAccount;
     private SharedPreferencesHelper spfHelper;
@@ -138,6 +141,8 @@ public class TesterHomeAccountService {
         user.setEmail(mAccountManager.getUserData(account, KEY_USER_DATA_EMAIL));
         user.setLocation(mAccountManager.getUserData(account, KEY_USER_DATA_LOCATION));
         user.setAccess_token(mAccountManager.getUserData(account, KEY_USER_DATA_TOKEN));
+        user.setCompany(mAccountManager.getUserData(account, KEY_USER_DATA_COMPANY));
+        user.setTagline(mAccountManager.getUserData(account, KEY_USER_DATA_TAGLINE));
         return user;
     }
 
@@ -155,6 +160,8 @@ public class TesterHomeAccountService {
         mAccountManager.setUserData(account, KEY_USER_DATA_EMAIL, userProfile.getEmail());
         mAccountManager.setUserData(account, KEY_USER_DATA_LOCATION, userProfile.getLocation());
         mAccountManager.setUserData(account, KEY_USER_DATA_TOKEN, userProfile.getAccess_token());
+        mAccountManager.setUserData(account,KEY_USER_DATA_COMPANY,userProfile.getCompany());
+        mAccountManager.setUserData(account,KEY_USER_DATA_TAGLINE,userProfile.getTagline());
     }
 
     private Account findAccountByUsername(String username) {
