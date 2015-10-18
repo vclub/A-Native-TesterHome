@@ -121,6 +121,7 @@ public class TesterHomeAccountService {
         Account account = setActiveAccount(username, password);
         setDefaultAccount(account);
 
+        user.setAccess_token(password);
         updateAccountInfo(account, user);
 
         return true;

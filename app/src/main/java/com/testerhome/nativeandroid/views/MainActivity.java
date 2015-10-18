@@ -3,6 +3,7 @@ package com.testerhome.nativeandroid.views;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -150,12 +151,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    @Nullable
     @Bind(R.id.sdv_account_avatar)
     SimpleDraweeView mAccountAvatar;
 
+    @Nullable
     @Bind(R.id.tv_account_username)
     TextView mAccountUsername;
 
+    @Nullable
     @Bind(R.id.tv_account_email)
     TextView mAccountEmail;
 

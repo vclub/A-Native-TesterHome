@@ -38,7 +38,7 @@ public interface TopicsService {
                        @Query("offset") int offset,
                        Callback<TopicsResponse> callback);
 
-    @GET("/users/{username}/favorite.json")
+    @GET("/users/{username}/favorites.json")
     void getUserFavorite(@Path("username") String username,
                        @Query("access_token") String accessToken,
                        @Query("offset") int offset,

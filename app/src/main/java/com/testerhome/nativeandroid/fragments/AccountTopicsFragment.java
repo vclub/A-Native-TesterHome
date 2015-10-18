@@ -30,7 +30,7 @@ public class AccountTopicsFragment extends BaseFragment {
     @Bind(R.id.srl_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    private int mNextCursor = 1;
+    private int mNextCursor = 0;
 
     private TopicsListAdapter mAdatper;
 
@@ -50,9 +50,17 @@ public class AccountTopicsFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         setupView();
 
-        if (mTesterHomeAccount == null){
+        if (mTesterHomeAccount == null) {
             getUserInfo();
         }
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        loadTopics();
     }
 
     private void setupView() {
@@ -75,16 +83,16 @@ public class AccountTopicsFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mNextCursor = 0;
                 loadTopics();
             }
         });
 
-        loadTopics();
     }
 
     private TesterUser mTesterHomeAccount;
 
-    private void getUserInfo(){
+    private void getUserInfo() {
         mTesterHomeAccount = TesterHomeAccountService.getInstance(getContext()).getActiveAccountInfo();
     }
 
@@ -102,7 +110,7 @@ public class AccountTopicsFragment extends BaseFragment {
                             swipeRefreshLayout.setRefreshing(false);
                         }
                         if (topicsResponse.getTopics().size() > 0) {
-                            if (mNextCursor == 1) {
+                            if (mNextCursor == 0) {
                                 mAdatper.setItems(topicsResponse.getTopics());
                             } else {
                                 mAdatper.addItems(topicsResponse.getTopics());

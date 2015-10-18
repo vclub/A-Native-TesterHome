@@ -22,42 +22,34 @@ import butterknife.ButterKnife;
 /**
  * Created by cvtpc on 2015/10/16.
  */
-public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
+public class TopicReplyAdapter extends BaseAdapter<TopicReplyEntity> {
 
     public static String TAG = "TopicReplyAdapter";
 
     public TopicReplyAdapter(Context context) {
         super(context);
-
     }
-
-
-
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = View.inflate(parent.getContext(), R.layout.list_item_reply,null);
+        View view = View.inflate(parent.getContext(), R.layout.list_item_reply, null);
         return new ReplyViewHolder(view);
-
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ReplyViewHolder holder = (ReplyViewHolder)viewHolder;
+        ReplyViewHolder holder = (ReplyViewHolder) viewHolder;
 
         holder.topicReplyLayout.setVisibility(View.VISIBLE);
         holder.deletedFloor.setVisibility(View.GONE);
         holder.topic = mItems.get(position);
-        if(holder.topic.isDeleted()){
+        if (holder.topic.isDeleted()) {
             holder.topicReplyLayout.setVisibility(View.GONE);
             holder.deletedFloor.setVisibility(View.VISIBLE);
             holder.deletedFloor.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-        }else{
+        } else {
             holder.topicTime.setText(StringUtils.formatPublishDateTime(holder.topic.getCreated_at()));
-            holder.topicItemAuthor.setText(holder.topic.getUser().getLogin());
+            holder.topicItemAuthor.setText(holder.topic.getUser().getName());
             String html = holder.topic.getBody_html();
 //            html = html.replaceAll("src=\"/photo", "src=\"" + Config.BASEURL + "/photo");
             holder.topicItemBody.setText(Html.fromHtml(html));
@@ -67,13 +59,7 @@ public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
                 mListener.onListEnded();
             }
         }
-
-
-
-
-
     }
-
 
     private EndlessListener mListener;
 
@@ -85,10 +71,7 @@ public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
         void onListEnded();
     }
 
-
-
-    public static class ReplyViewHolder extends RecyclerView.ViewHolder{
-
+    public static class ReplyViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.id_topic_reply_layout)
         RelativeLayout topicReplyLayout;
@@ -112,7 +95,6 @@ public class TopicReplyAdapter  extends  BaseAdapter<TopicReplyEntity>{
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
 
     }
 
