@@ -46,10 +46,6 @@ public class HomeFragment extends BaseFragment {
         tabLayoutTopicsTab.setTabsFromPagerAdapter(mAdapter);
     }
 
-
-
-
-
     public class TopicViewPagerAdapter extends FragmentPagerAdapter {
 
         private String[] typeName = {"最新","最热","沙发","精华"};

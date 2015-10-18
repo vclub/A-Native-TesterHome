@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.testerhome.nativeandroid.R;
+import com.testerhome.nativeandroid.auth.TesterHomeAccountService;
 import com.testerhome.nativeandroid.views.base.BackBaseActivity;
 
 import butterknife.OnClick;
@@ -29,5 +30,10 @@ public class UserProfileActivity extends BackBaseActivity {
     @OnClick(R.id.btn_show_topics)
     void onTopicsClick(){
         startActivity(new Intent(this, AccountTopicsActivity.class));
+    }
+
+    @OnClick(R.id.btn_logout)
+    void onLogoutClick() {
+        TesterHomeAccountService.getInstance(this).logout();
     }
 }

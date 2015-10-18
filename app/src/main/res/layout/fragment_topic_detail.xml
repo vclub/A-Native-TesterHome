@@ -53,7 +53,7 @@
                 android:layout_below="@+id/tv_detail_name"
                 tools:text="datetime." />
         </RelativeLayout>
-        <WebView
+        <us.feras.mdv.MarkdownView
             android:id="@+id/tv_detail_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

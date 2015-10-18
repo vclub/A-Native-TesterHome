@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -24,6 +23,7 @@ import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import us.feras.mdv.MarkdownView;
 
 /**
  * Created by vclub on 15/9/17.
@@ -44,7 +44,7 @@ public class TopicDetailFragment extends BaseFragment {
     private String mTopicId;
 
     @Bind(R.id.tv_detail_body)
-    WebView tvDetailBody;
+    MarkdownView tvDetailBody;
 
     public static TopicDetailFragment newInstance(Integer topicId) {
         Bundle args = new Bundle();
@@ -60,8 +60,8 @@ public class TopicDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         // getArguments().getString("topic_id");
-        tvDetailBody.getSettings().setUseWideViewPort(true);
-        tvDetailBody.getSettings().setLoadWithOverviewMode(true);
+//        tvDetailBody.getSettings().setUseWideViewPort(true);
+//        tvDetailBody.getSettings().setLoadWithOverviewMode(true);
         loadInfo();
     }
 
@@ -78,14 +78,14 @@ public class TopicDetailFragment extends BaseFragment {
                         TopicDetailEntity topicEntity = topicDetailResponse.getTopic();
                         tvDetailTitle.setText(topicEntity.getTitle());
                         tvDetailName.setText(topicEntity.getNode_name() + ".");
-                        tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getLogin()) ? "匿名用户" : topicEntity.getUser().getLogin());
+                        tvDetailUsername.setText(TextUtils.isEmpty(topicEntity.getUser().getLogin()) ? "匿名用户" : topicEntity.getUser().getName());
                         tvDetailPublishDate.setText(StringUtils.formatPublishDateTime(topicEntity.getCreated_at())
                                 + "." + topicEntity.getHits() + "次阅读");
                         sdvDetailUserAvatar.setImageURI(Uri.parse(Config.getImageUrl(topicEntity.getUser().getAvatar_url())));
 
 
                         showWebContent(topicEntity.getBody_html());
-
+                        // tvDetailBody.loadMarkdown(topicEntity.getBody());
                     }
 
                     @Override

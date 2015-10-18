@@ -30,7 +30,7 @@ public class AccountFavoriteFragment extends BaseFragment {
     @Bind(R.id.srl_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    private int mNextCursor = 1;
+    private int mNextCursor = 0;
 
     private TopicsListAdapter mAdatper;
 
@@ -48,11 +48,12 @@ public class AccountFavoriteFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setupView();
 
         if (mTesterHomeAccount == null){
             getUserInfo();
         }
+
+        setupView();
     }
 
     private void setupView() {
@@ -75,6 +76,7 @@ public class AccountFavoriteFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mNextCursor = 0;
                 loadTopics();
             }
         });
@@ -87,7 +89,6 @@ public class AccountFavoriteFragment extends BaseFragment {
     private void getUserInfo(){
         mTesterHomeAccount = TesterHomeAccountService.getInstance(getContext()).getActiveAccountInfo();
     }
-
 
     private void loadTopics() {
 
@@ -102,7 +103,7 @@ public class AccountFavoriteFragment extends BaseFragment {
                             swipeRefreshLayout.setRefreshing(false);
                         }
                         if (topicsResponse.getTopics().size() > 0) {
-                            if (mNextCursor == 1) {
+                            if (mNextCursor == 0) {
                                 mAdatper.setItems(topicsResponse.getTopics());
                             } else {
                                 mAdatper.addItems(topicsResponse.getTopics());

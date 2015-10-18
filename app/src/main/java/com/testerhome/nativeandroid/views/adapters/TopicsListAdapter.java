@@ -47,7 +47,7 @@ public class TopicsListAdapter extends BaseAdapter<TopicEntity> {
 
         holder.textViewTopicTitle.setText(topic.getTitle());
 
-        holder.topicUsername.setText(TextUtils.isEmpty(topic.getUser().getLogin()) ? "匿名用户" : topic.getUser().getLogin());
+        holder.topicUsername.setText(TextUtils.isEmpty(topic.getUser().getLogin()) ? "匿名用户" : topic.getUser().getName());
 
         holder.topicPublishDate.setText(StringUtils.formatPublishDateTime(topic.getCreated_at()));
 

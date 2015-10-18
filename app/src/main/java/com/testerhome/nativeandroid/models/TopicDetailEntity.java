@@ -6,7 +6,17 @@ package com.testerhome.nativeandroid.models;
 public class TopicDetailEntity extends TopicEntity {
 
     private String body_html;
+    private String body;
     private String hits;
+
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 
     public String getBody_html() {
         return body_html;
