@@ -50,6 +50,8 @@
             android:configChanges="keyboardHidden|screenSize|screenLayout" />
         <activity android:name=".views.TopicReplyActivity"
             android:configChanges="keyboardHidden|screenSize|screenLayout" />
+        <activity android:name=".views.AccountNotificationActivity"
+            android:configChanges="keyboardHidden|screenSize|screenLayout"/>
         <service
             android:name=".auth.UserAccountService"
             tools:ignore="ExportedService">

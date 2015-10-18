@@ -1,5 +1,6 @@
 package com.testerhome.nativeandroid.networks;
 
+import com.testerhome.nativeandroid.models.NotificationResponse;
 import com.testerhome.nativeandroid.models.TopicDetailResponse;
 import com.testerhome.nativeandroid.models.TopicReplyResponse;
 import com.testerhome.nativeandroid.models.TopicsResponse;
@@ -53,4 +54,8 @@ public interface TopicsService {
     void getTopicsReplies(@Path("id") String id,
                           @Query("offset") int offset,
                           Callback<TopicReplyResponse> callback);
+    @GET("/notifications.json")
+    void getNotifications(@Query("access_token") String access_token,
+                          @Query("offset") int offset,
+                          Callback<NotificationResponse> callback);
 }

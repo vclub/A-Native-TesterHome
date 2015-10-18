@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dip">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/id_user_avatar"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        fresco:roundAsCircle="true"
+        fresco:roundedCornerRadius="180dp"
+        fresco:actualImageScaleType="focusCrop"
+        />
+    <TextView
+        android:id="@+id/id_notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/id_user_avatar"
+        android:layout_toRightOf="@+id/id_user_avatar"
+        android:layout_marginLeft="10dip"
+        android:maxLines="2"
+        android:minLines="2"
+        android:text="chenhengjie 在帖子 TesterHome native app 登陆授权介绍 回复了："
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/id_notification_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_notification_title"
+        android:layout_toRightOf="@+id/id_user_avatar"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="5dip"
+        android:text="不错啊！大神"
+        android:textSize="17sp"
+        />
+
+
+</RelativeLayout>

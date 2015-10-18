@@ -1,6 +1,7 @@
 package com.testerhome.nativeandroid.views;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,7 @@ public class WebViewActivity extends BackBaseActivity {
     private ProgressDialog pd;
 
     private String auth_code = "";
-
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +48,14 @@ public class WebViewActivity extends BackBaseActivity {
 
         FrameLayout layout = (FrameLayout) findViewById(R.id.container);
         layout.addView(mWebView = new WebView(this));
-
+        intent = getIntent();
         mWebView.getSettings().getJavaScriptEnabled();
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
+                Log.d("test", url);
                 // http://testerhome.com/oauth/authorize/
                 if (url.startsWith(AuthenticationService.HTTP_AUTHORIZATION_URL)) {
                     try {
@@ -65,10 +67,10 @@ public class WebViewActivity extends BackBaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else if(url.equals(AuthenticationService.LOGIN_URL)){
+                } else if (url.contains(AuthenticationService.LOGIN_URL)) {
                     url = AuthenticationService.HTTPS_LOGIN_URL;
-                }else if(url.equals(AuthenticationService.BASEURL)){
-                    url = AuthenticationService.HTTPS_BASEURL;
+                } else if (url.contains(AuthenticationService.BASEURL)) {
+                    url = AuthenticationService.getAuthorizationUrl();
                 }
 //                return super.shouldOverrideUrlLoading(view, url);
                 view.loadUrl(url);
@@ -205,6 +207,7 @@ public class WebViewActivity extends BackBaseActivity {
                     TesterHomeAccountService.getInstance(WebViewActivity.this)
                             .signIn(login, token, userResponse.getUser());
 
+                    setResult(RESULT_OK, intent);
                     WebViewActivity.this.finish();
                 }
             }
