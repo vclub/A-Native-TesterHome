@@ -57,7 +57,7 @@ public class WebViewActivity extends BackBaseActivity {
 
                 Log.d("test", url);
                 // http://testerhome.com/oauth/authorize/
-                if (url.startsWith(AuthenticationService.HTTP_AUTHORIZATION_URL)) {
+                if (url.startsWith(AuthenticationService.HTTP_AUTHORIZATION_URL) || url.startsWith(AuthenticationService.AUTHORIZATION_URL)) {
                     try {
                         auth_code = url.substring(url.lastIndexOf("/") + 1);
                         //Generate URL for requesting Access Token

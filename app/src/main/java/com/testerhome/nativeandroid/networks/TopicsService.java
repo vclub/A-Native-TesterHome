@@ -7,6 +7,7 @@ import com.testerhome.nativeandroid.models.TopicsResponse;
 import com.testerhome.nativeandroid.models.UserResponse;
 
 import retrofit.Callback;
+import retrofit.client.Response;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -58,4 +59,9 @@ public interface TopicsService {
     void getNotifications(@Query("access_token") String access_token,
                           @Query("offset") int offset,
                           Callback<NotificationResponse> callback);
+
+    @GET("/topics/{path}/replies.json")
+    void createReply(@Query("id") String id,
+                     @Query("body") String body,
+                     Callback<Response> callback);
 }

@@ -3,7 +3,6 @@ package com.testerhome.nativeandroid.views;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,21 +26,13 @@ import com.testerhome.nativeandroid.fragments.TopicsListFragment;
 import com.testerhome.nativeandroid.models.TesterUser;
 import com.testerhome.nativeandroid.views.base.BaseActivity;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    @Bind(R.id.drawer_layout)
-    DrawerLayout drawer;
-
-    @Bind(R.id.nav_view)
-    NavigationView navigationView;
 
     private Fragment homeFragment;
     private Fragment jobFragment;
     private Fragment topicFragment;
     private Fragment myFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,27 +47,41 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void setupView() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
         homeFragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.realtabcontent,homeFragment).commit();
-    }
+        getSupportFragmentManager().beginTransaction().replace(R.id.realtabcontent, homeFragment).commit();
 
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
+
+        mAccountAvatar = (SimpleDraweeView) headerLayout.findViewById(R.id.sdv_account_avatar);
+        mAccountAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAvatarClick();
+            }
+        });
+        mAccountUsername = (TextView) headerLayout.findViewById(R.id.tv_account_username);
+        mAccountEmail = (TextView) headerLayout.findViewById(R.id.tv_account_email);
+    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction =  fm.beginTransaction();
-            if(myFragment==null){
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            if (myFragment == null) {
                 myFragment = new MyFragment();
-                fragmentTransaction.add(R.id.realtabcontent,myFragment);
+                fragmentTransaction.add(R.id.realtabcontent, myFragment);
             }
             fragmentTransaction.show(myFragment);
             fragmentTransaction.commitAllowingStateLoss();
@@ -109,31 +115,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Handle navigation view item clicks here.
 
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction =  fm.beginTransaction();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
         hideAllFragment(fragmentTransaction);
-
-
 
 
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_home) {
-            if (homeFragment==null){
+            if (homeFragment == null) {
                 homeFragment = new HomeFragment();
-                fragmentTransaction.add(R.id.realtabcontent,homeFragment);
+                fragmentTransaction.add(R.id.realtabcontent, homeFragment);
             }
             fragmentTransaction.show(homeFragment);
         } else if (id == R.id.nav_topic) {
-            if (topicFragment==null){
+            if (topicFragment == null) {
                 topicFragment = TopicsListFragment.newInstance(Config.TOPICS_TYPE_LAST_ACTIVED);
-                fragmentTransaction.add(R.id.realtabcontent,topicFragment);
+                fragmentTransaction.add(R.id.realtabcontent, topicFragment);
 
             }
             fragmentTransaction.show(topicFragment);
         } else if (id == R.id.nav_job) {
-            if (jobFragment==null){
+            if (jobFragment == null) {
                 jobFragment = TopicsListFragment.newInstance(Config.TOPIC_JOB_NODEID);
-                fragmentTransaction.add(R.id.realtabcontent,jobFragment);
+                fragmentTransaction.add(R.id.realtabcontent, jobFragment);
 
             }
             fragmentTransaction.show(jobFragment);
@@ -141,10 +145,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_my) {
             if (!(mTesterHomeAccount != null && !TextUtils.isEmpty(mTesterHomeAccount.getLogin()))) {
                 startActivityForResult(new Intent(this, WebViewActivity.class), 1);
-            }else{
-                if(myFragment==null){
+            } else {
+                if (myFragment == null) {
                     myFragment = new MyFragment();
-                    fragmentTransaction.add(R.id.realtabcontent,myFragment);
+                    fragmentTransaction.add(R.id.realtabcontent, myFragment);
                 }
                 fragmentTransaction.show(myFragment);
             }
@@ -163,34 +167,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
 
-        if(homeFragment!=null){
+        if (homeFragment != null) {
             fragmentTransaction.hide(homeFragment);
         }
-        if(topicFragment!=null){
+        if (topicFragment != null) {
             fragmentTransaction.hide(topicFragment);
         }
-        if(jobFragment!=null){
+        if (jobFragment != null) {
             fragmentTransaction.hide(jobFragment);
         }
-        if(myFragment!=null){
+        if (myFragment != null) {
             fragmentTransaction.hide(myFragment);
         }
     }
 
-    @Nullable
-    @Bind(R.id.sdv_account_avatar)
     SimpleDraweeView mAccountAvatar;
 
-    @Nullable
-    @Bind(R.id.tv_account_username)
     TextView mAccountUsername;
 
-    @Nullable
-    @Bind(R.id.tv_account_email)
     TextView mAccountEmail;
 
-    @OnClick(R.id.sdv_account_avatar)
-    void onAvatarClick(){
+    void onAvatarClick() {
         if (mTesterHomeAccount != null && !TextUtils.isEmpty(mTesterHomeAccount.getLogin())) {
             startActivity(new Intent(this, UserProfileActivity.class));
         } else {
