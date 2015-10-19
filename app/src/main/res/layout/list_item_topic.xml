@@ -8,8 +8,7 @@
     android:layout_marginBottom="8dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginTop="8dp"
-    android:orientation="vertical">
+    android:layout_marginTop="8dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_topic_user_avatar"
